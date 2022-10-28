@@ -1,3 +1,4 @@
+package com.app.pruebaprenotazione.service;
 
 import com.app.pruebaprenotazione.model.Buscar;
 import com.app.pruebaprenotazione.model.Hotel;
@@ -11,9 +12,9 @@ public class BuscarService{
     public List<Hotel> BotonBuscar(Buscar buscar, List<Hotel> listaHoteles){
         String srtBuscar;
         List<Hotel> coincidan = new ArrayList<>();
-        srtBuscar = buscar.getHotelBuscar().toLowerCase();
+        srtBuscar = buscar.getHotelBuscado().toLowerCase();
         for(Hotel hoteles : listaHoteles) {
-            if ((hoteles.getLocalizacion().toLowerCase().contains(srtBuscar)) ||
+            if ((hoteles.getCiudad().toLowerCase().contains(srtBuscar)) ||
                     (hoteles.getNombre().toLowerCase().contains(srtBuscar))) {
                 coincidan.add(hoteles);
             }

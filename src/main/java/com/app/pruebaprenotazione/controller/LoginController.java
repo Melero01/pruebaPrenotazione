@@ -1,9 +1,8 @@
 package com.app.pruebaprenotazione.controller;
-import com.example.atlantis.model.Busqueda;
-import com.example.atlantis.model.Login;
-import com.example.atlantis.service.LoginService;
+import com.app.pruebaprenotazione.model.Buscar;
+import com.app.pruebaprenotazione.model.Login;
+import com.app.pruebaprenotazione.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,14 +24,14 @@ public class LoginController {
 
     }
     @PostMapping("/login")
-    public String submitForm1(@ModelAttribute Login login, Busqueda busqueda) {
+    public String submitForm1(@ModelAttribute Login login, Buscar buscar) {
 
         ModelAndView model = new ModelAndView("sesion");
         model.addObject("login", login);
         ModelAndView model1 = new ModelAndView("main");
         model1.addObject("login", login);
 
-        boolean cierto = loginService.Buscar(login);
+        boolean cierto = loginService.Search(login);
 
         if(cierto){
             return "redirect:/main";

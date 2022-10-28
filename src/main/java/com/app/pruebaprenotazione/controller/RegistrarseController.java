@@ -1,11 +1,10 @@
 package com.app.pruebaprenotazione.controller;
 
-import com.example.atlantis.model.Cliente;
-import com.example.atlantis.model.Hotel;
-import com.example.atlantis.model.Login;
-import com.example.atlantis.service.ClienteService;
-import com.example.atlantis.service.HotelService;
-import com.example.atlantis.service.LoginService;
+import com.app.pruebaprenotazione.model.Hotel;
+import com.app.pruebaprenotazione.model.Usuario;
+import com.app.pruebaprenotazione.service.HotelService;
+import com.app.pruebaprenotazione.service.LoginService;
+import com.app.pruebaprenotazione.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,8 @@ import java.util.List;
 public class RegistrarseController {
 
     @Autowired
-    private ClienteService clienteService;
+    private UsuarioService usuarioService;
+
     @Autowired
     private LoginService loginService;
 
@@ -28,16 +28,16 @@ public class RegistrarseController {
 
 
     @PostMapping("/guardar")
-    public String guardarCliente(@RequestBody Cliente cliente){
-        clienteService.guardarCliente(cliente);
-        loginService.guardarLogin(cliente.getEmail());
+    public String guardarCliente(@RequestBody Usuario usuario){
+        usuarioService.guardarUsuario(usuario);
+        loginService.savelogin(usuario.getEmail());
         return "Datos guardados correctamente";
     }
 
     @PostMapping("/guardarhotel")
     public String guardarHotel(@RequestBody Hotel hotel){
-        hotelService.guardarHotel(hotel);
-        loginService.guardarLogin(hotel.getEmail());
+        hotelService.saveHotel(hotel);
+        loginService.savelogin(hotel.getEmail());
         return "Datos guardados correctamente";
     }
 }

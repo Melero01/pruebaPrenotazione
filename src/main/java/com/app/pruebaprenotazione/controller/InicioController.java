@@ -1,10 +1,9 @@
-package com.example.atlantis.controller;
-import com.example.atlantis.model.Busqueda;
-import com.example.atlantis.model.Hotel;
-import com.example.atlantis.model.Regimen;
-import com.example.atlantis.service.BusquedaService;
-import com.example.atlantis.service.HotelService;
-import com.example.atlantis.service.RegimenService;
+package com.app.pruebaprenotazione.controller;
+
+import com.app.pruebaprenotazione.model.Buscar;
+import com.app.pruebaprenotazione.model.Hotel;
+import com.app.pruebaprenotazione.service.BuscarService;
+import com.app.pruebaprenotazione.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,17 +21,17 @@ public class InicioController {
     private HotelService hotelService;
 
     @Autowired
-    private BusquedaService busquedaService;
+    private BuscarService buscarService;
 
     @GetMapping("/main")
-    public ModelAndView listaHotel(@ModelAttribute Busqueda busqueda) {
+    public ModelAndView listaHotel(@ModelAttribute Buscar buscar) {
         List<Hotel> listaprimera = hotelService.getAll();
         Collections.shuffle(listaprimera);
         List<Hotel> listaHotel = listaprimera.subList(0, 3);
         ModelAndView model = new ModelAndView("main");
         model.addObject("listaHotel", listaHotel);
         model.addObject("fechamin", LocalDate.now());
-        model.addObject("busqueda", busqueda);
+        model.addObject("busqueda", buscar);
         return model;
     }
 
@@ -44,11 +43,11 @@ public class InicioController {
 
 
     @PostMapping("/main")
-    public ModelAndView listaHoteles(@ModelAttribute Busqueda busqueda) {
+    public ModelAndView listaHoteles(@ModelAttribute Buscar buscar) {
         List<Hotel> listaHoteles = hotelService.getAll();
         ModelAndView model = new ModelAndView("resultado");
-        List<Hotel> filtro = busquedaService.AccionBuscar(busqueda,listaHoteles);
-        if(LocalDate.parse(busqueda.getFechaInicial()).isAfter(LocalDate.parse(busqueda.getFechaFinal())))
+        List<Hotel> filtro = buscarService.BotonBuscar(buscar,listaHoteles);
+        if(LocalDate.parse(buscar.getFechaEntrada()).isAfter(LocalDate.parse(buscar.getFechaSalida())))
         {
             return new ModelAndView("redirect:main");
         }
@@ -58,7 +57,7 @@ public class InicioController {
     }
 
     @GetMapping("/")
-    public String irAMain(@ModelAttribute Busqueda busqueda) {
+    public String irAMain(@ModelAttribute Buscar buscar) {
         return "main";
     }
 }
