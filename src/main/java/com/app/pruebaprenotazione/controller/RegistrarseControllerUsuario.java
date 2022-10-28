@@ -1,5 +1,8 @@
 package com.app.pruebaprenotazione.controller;
 
+import com.app.pruebaprenotazione.model.Tipo_Cliente;
+import com.app.pruebaprenotazione.model.Usuario;
+import com.app.pruebaprenotazione.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +17,15 @@ import java.util.List;
     public class RegistrarseControllerUsuario {
 
         @Autowired
-        private ClienteService clienteService;
+        private UsuarioService usuarioService;
 
 
         @GetMapping("/register")
-        public String registerForm(Model model, @ModelAttribute Cliente cliente) {
+        public String registerForm(Model model, @ModelAttribute Usuario usuario) {
 
-            Cliente cliente1 = cliente;
+            Usuario cliente = usuario;
 
-            model.addAttribute("cliente", cliente1);
+            model.addAttribute("usuario", cliente);
 
             List<String> listpais = Arrays.asList("España", "Francia", "Alemania");
             model.addAttribute("listpais", listpais);
@@ -31,15 +34,15 @@ import java.util.List;
         }
 
         @PostMapping("/registrocliente")
-        public String registerForm(@ModelAttribute("cliente") Cliente cliente) {
-            if(cliente.getNombre() != null && cliente.getApellidos() != null
-                    && cliente.getEmail().getEmail() != null &&
-                    cliente.getEmail().getPassword() != null && cliente.getDni() != null
-                    && clienteService.validarDNI(cliente.getDni()) != false) {
+        public String registerForm(@ModelAttribute("cliente") Usuario usuario) {
+            if(usuario.getNombre() != null && usuario.getApellidos() != null
+                    && usuario.getEmail().getEmail() != null &&
+                    usuario.getEmail().getContrasenya() != null && usuario.getDni() != null
+                    && usuarioService.DNIvalido(usuario.getDni()) != false) {
 
-                cliente.getEmail().setRol(Rol.CLIENTE);
-                clienteService.guardarCliente(cliente);
-                System.out.println(cliente);
+                usuario.getEmail().setTipo_usuario(Tipo_Cliente.CLIENTE);
+                usuarioService.guardarUsuario(usuario);
+                System.out.println(usuario);
 
                 return "redirect:/main";
 

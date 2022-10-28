@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador</title>
+</head>
+<body>
+<p>HOLA A TODOS</p>
+<div class="container rounded shafow-sm">
+    <form th:action="@{/inicio}" th:object="${buscar}" method="post">
+        <div class="row align-items-end">
+            <div class="col-lg-3 mb-3">
+                <label class="form-label" style="font-weight: 300;">Buscador</label>
+                <input type="text" class="form-control shadow-none" placeholder="Buscador" th:field="${hotelBuscar}">
+            </div>
+        <div class="row align-items-end">
+            <div class="col-lg-3 mb-3">
+                <label class="form-label" style="font-weight: 300;">Fecha Llegada</label>
+                <input type="date" class="form-control shadow-none" th:field="${fechaEntrada}" th:min="${fechaminima}">
+            </div>
+        </div>
+        <div class="row align-items-end">
+            <div class="col-lg-3 mb-3">
+                <label class="form-label" style="font-weight: 300;">Fecha Salida</label>
+                <input type="date" class="form-control shadow-none" th:field="${fechaSalida}" th:min="${fechaminima}">
+            </div>
+        </div>
+        <div class="col-lg-1 mb-lg-3 mt-2">
+            <input class="icon btn btn-primary form-control text-center" type="submit" value="">
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

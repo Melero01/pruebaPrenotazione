@@ -7,6 +7,7 @@ import com.app.pruebaprenotazione.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class HotelService {
         return hotelRepository.findById(id).orElse(null);
     }
 
-    public Hotel covertToHotel(RegistrarHotel hotel){
+    public Hotel covertToHotel(HotelRegist hotel){
 
         hotel.getEmail().setTipo_usuario(Tipo_Cliente.EMPRESA);
 
@@ -34,8 +35,8 @@ public class HotelService {
         hotel1.setPais(hotel.getPais());
         hotel1.setCiudad(hotel.getCiudad());
         hotel1.setDireccion(hotel.getDireccion());
-        hotel1.setFecha_abre(hotel.getFecha_abre());
-        hotel1.setFecha_cierre(hotel.getFecha_cierre());
+        hotel1.setFecha_abre(LocalDate.parse(hotel.getFecha_abre()));
+        hotel1.setFecha_cierre(LocalDate.parse(hotel.getFecha_cierre()));
         hotel1.setTelefono(hotel.getTelefono());
         hotel1.setTipo_hotel(hotel.getTipo_hotel());
         hotel1.setEmail(hotel.getEmail());
